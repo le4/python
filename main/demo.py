@@ -10,9 +10,11 @@ import requests
 from bs4 import BeautifulSoup
 import sys
 
-url = "http://96xxnet1.com/tuinvlang/"
-urlbaidu = "http://www.baidu.com"
-a = "52bc715737c3d31:0"
+baseurl = "http://96xxnet1.com"
+url = baseurl + "/tuinvlang/"
+
+match = "52bc715737c3d31:0"
+# 添加请求头
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36',
     'Referer': 'http://96xxnet1.com/tuinvlang/',
@@ -24,10 +26,23 @@ headers = {
     'Host': '96xxnet1.com',
     'Cookie': 'UM_distinctid=1626311e6f1848-04f4ebc0e8512e-3a61430c-100200-1626311e6f2321; CNZZDATA1255630433=1566942871-1522079944-http%253A%252F%252F96xxnet1.com%252F%7C1522162972',
     'Connection': 'keep-alive',
-    'If-None-Match': a
+    'If-None-Match': match
 }
-requset = requests.get(url)
+
+#获取html
+def getHtml(tempUrl):
+    requset = requests.get(tempUrl, headers=headers)
+    requset.encoding = "gb2312"
+    html = requset.text
+    return html
+
+# 过滤首页获得每个首页的item
+requset = requests.get(url, headers=headers)
 requset.encoding = "gb2312"
 html = requset.text
 soup = BeautifulSoup(html, 'html.parser')
-print(soup)  # 可以看到网页的内容
+for tag in soup.find_all('h2'):
+    row = tag.contents[0]
+    print(baseurl + row.attrs['href'])
+    print(getHtml(baseurl + row.attrs['href']))
+# print(soup)  # 可以看到网页的内容
