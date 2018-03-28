@@ -29,7 +29,8 @@ headers = {
     'If-None-Match': match
 }
 
-#获取html
+
+# 获取html
 def getHtml(tempUrl):
     requset = requests.get(tempUrl, headers=headers)
     requset.encoding = "gb2312"
@@ -43,6 +44,8 @@ html = requset.text
 soup = BeautifulSoup(html, 'html.parser')
 for tag in soup.find_all('h2'):
     row = tag.contents[0]
-    print(baseurl + row.attrs['href'])
-    print(getHtml(baseurl + row.attrs['href']))
+    rowHtml = getHtml(baseurl + row.attrs['href'])
+    rowSoup = BeautifulSoup(rowHtml, 'html.parser')
+    # article=rowSoup.find("article")
+    print(rowSoup)
 # print(soup)  # 可以看到网页的内容
