@@ -34,8 +34,8 @@ headers = {
     'If-None-Match': match
 }
 
-path = 'E://meitu/'
-targetDir = "E://meitu/"  # 文件保存路径
+path = '/Users/shenyiya/Desktop/image/'
+targetDir = "/Users/shenyiya/Desktop/image/"  # 文件保存路径
 
 
 # 获取html
@@ -61,7 +61,6 @@ if __name__ == '__main__':
         for tag in rowSoup.find_all("article"):
             itemlist = tag.find_all("img")
             for img in itemlist:
-                time.sleep(4)
                 imglink = baseurl + img.attrs['src']
                 print(imglink)
                 try:

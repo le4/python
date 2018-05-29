@@ -37,15 +37,19 @@ def getHtml(tempUrl):
     html = requset.text
     return html
 
+
+html=getHtml("http://yytu52.com/PhotoShow.asp?flowNo=1")
+print(html)
+
 # 过滤首页获得每个首页的item
-requset = requests.get(url, headers=headers)
-requset.encoding = "gb2312"
-html = requset.text
-soup = BeautifulSoup(html, 'html.parser')
-for tag in soup.find_all('h2'):
-    row = tag.contents[0]
-    rowHtml = getHtml(baseurl + row.attrs['href'])
-    rowSoup = BeautifulSoup(rowHtml, 'html.parser')
-    # article=rowSoup.find("article")
-    print(rowSoup)
+# requset = requests.get(url, headers=headers)
+# requset.encoding = "gb2312"
+# html = requset.text
+# soup = BeautifulSoup(html, 'html.parser')
+# for tag in soup.find_all('h2'):
+#     row = tag.contents[0]
+#     rowHtml = getHtml(baseurl + row.attrs['href'])
+#     rowSoup = BeautifulSoup(rowHtml, 'html.parser')
+#     # article=rowSoup.find("article")
+#     print(rowSoup)
 # print(soup)  # 可以看到网页的内容
